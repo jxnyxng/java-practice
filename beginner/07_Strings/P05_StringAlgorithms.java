@@ -81,7 +81,10 @@ public class P05_StringAlgorithms {
 
         // TODO: 각 테스트 케이스에 대해 isPalindrome() 결과를 출력하세요.
         //       "A man..." 은 정규화(소문자 변환 + 영숫자만 추출) 후 전달.
-
+        for (String c : palindromeTests) {
+            String normalized = c.toLowerCase().replaceAll("[^a-z0-9]", "");
+            System.out.println("\"" + c + "\" : " + isPalindrome(normalized));
+        }
         System.out.println();
 
         // ====================================================
@@ -121,11 +124,23 @@ public class P05_StringAlgorithms {
         String freqTarget = "programming";
 
         // TODO: countFrequency() 메소드를 호출하여 빈도수 배열 받기
-
+        int[] res = countFrequency(freqTarget);
         // TODO: 빈도수가 0이 아닌 문자와 횟수 출력
-
+        for (int i=0; i<26; i++){
+            if (res[i] > 0) {
+                System.out.println((char)('a' + i) + ": " + res[i]);
+            }
+        }
         // TODO: 가장 많이 등장한 문자 찾아 출력
-
+        char maxChar = 'a';
+        int maxCnt = -1;
+        for (int i=0; i< res.length; i++){
+            if (maxCnt < res[i]) {
+                maxChar = (char)('a' + i);
+                maxCnt = res[i];
+            }
+        }
+        System.out.println("가장 많은 문자: " + maxChar + " (" + maxCnt + "회)");
         System.out.println();
 
         // ====================================================
@@ -171,7 +186,9 @@ public class P05_StringAlgorithms {
         };
 
         // TODO: 각 쌍에 대해 isAnagram() 결과를 출력하세요.
-
+        for (String[] ap : anagramPairs){
+            System.out.println(ap[0] + " / " + ap[1] + " : " + isAnagram(ap[0], ap[1]));
+        }
         System.out.println();
 
         // ====================================================
@@ -219,6 +236,9 @@ public class P05_StringAlgorithms {
 
         // TODO: 각 테스트 케이스에 대해 removeDuplicates() 결과를 출력하세요.
         // 출력 형식: '"programming" → "progamin"'
+        for (String d : dupTests){
+            System.out.println("\"" + d +  "\"" + " -> " + "\"" + removeDuplicates(d) + "\"");
+        }
 
     }
 
@@ -236,7 +256,17 @@ public class P05_StringAlgorithms {
     static boolean isPalindrome(String s) {
         // TODO: left=0, right=s.length()-1 포인터를 사용하여
         //       양끝에서 좁히며 비교. 불일치 시 false 반환.
-        return false;
+        int left = 0;
+        int right = s.length() - 1;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+
+        return true;
     }
 
     /**
@@ -251,7 +281,17 @@ public class P05_StringAlgorithms {
         //       s를 소문자로 변환 후 순회.
         //       영문자인 경우 freq[ch - 'a']++ 증가.
         //       배열 반환.
-        return new int[26];
+        String ns = s.toLowerCase();
+        int[] cnt = new int[26];
+
+        for (int i=0; i<s.length(); i++){
+            char ch = ns.charAt(i);
+            if (ch >= 'a' && ch <= 'z') {
+                cnt[ch - 'a']++;
+            }
+        }
+
+        return cnt;
     }
 
     /**
@@ -266,7 +306,23 @@ public class P05_StringAlgorithms {
         // TODO: 두 문자열을 소문자로 변환하고 공백 제거.
         //       길이가 다르면 즉시 false 반환.
         //       각 문자열의 char[]을 정렬하여 Arrays.equals()로 비교.
-        return false;
+        s1 = s1.toLowerCase().strip().replaceAll("\\s", "");
+        s2 = s2.toLowerCase().strip().replaceAll("\\s", "");
+
+        if (s1.length() != s2.length()) return false;
+
+        char[] ns1 = new char[s1.length()];
+        char[] ns2 = new char[s2.length()];
+
+        for(int i=0; i<s1.length(); i++){
+            ns1[i] = s1.charAt(i);
+            ns2[i] = s2.charAt(i);
+        }
+
+        Arrays.sort(ns1);
+        Arrays.sort(ns2);
+
+        return Arrays.equals(ns1, ns2);
     }
 
     /**
@@ -280,6 +336,14 @@ public class P05_StringAlgorithms {
         //       s의 각 문자를 순회.
         //       result에 해당 문자가 없으면 append.
         //       result.toString() 반환.
-        return "";
+        StringBuilder result = new StringBuilder();
+
+        for (int i=0; i<s.length(); i++){
+            char curr = s.charAt(i);
+            if (result.indexOf(String.valueOf(curr))==-1) {
+                result.append(curr);
+            }
+        }
+        return result.toString();
     }
 }

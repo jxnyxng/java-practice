@@ -78,10 +78,16 @@ public class P04_StringFormatting {
         double[] prices     = {1200.0, 800.5, 1500.0};
 
         // TODO: 헤더 행 출력 (%-10s 형식 사용)
-
+        System.out.printf("%-10s %5s %10s %10s%n", "상품명", "수량", "단가", "합계");
         // TODO: 구분선 출력 (예: "-------------------------------------------")
+        System.out.println("-----------------------------------------------");
 
         // TODO: for 루프로 각 행 출력 (합계 = 수량 * 단가 계산)
+        for (int i = 0; i < prices.length; i++) {
+            double total = quantities[i] * prices[i];
+            System.out.printf("%-10s %5d %10.1f %10.1f%n",
+                    itemNames[i], quantities[i], prices[i], total);
+        }
 
         System.out.println();
 
@@ -128,9 +134,25 @@ public class P04_StringFormatting {
         double discountRate = 0.1;
 
         // TODO: 할인금액과 최종금액 계산
-
+        double discountPrice = qty * unitPrice * discountRate;
+        double finalPrice = qty * unitPrice * (1 - discountRate);
         // TODO: String.format을 사용하여 영수증 각 항목 출력
         //       (천 단위 구분자, 퍼센트 형식 적용)
+        String receipt = String.format(
+                "===== 영수증 =====%n" +
+                        "고객명  : %s%n" +
+                        "상품명  : %s%n" +
+                        "수량    : %d개%n" +
+                        "단가    : %,.0f원%n" +
+                        "할인율  : %.2f%%%n" +
+                        "할인금액: %,.0f원%n" +
+                        "최종금액: %,.0f원%n" +
+                        "=================",
+                customerName, productName, qty, unitPrice,
+                discountRate * 100, discountPrice, finalPrice
+        );
+
+        System.out.println(receipt);
 
         System.out.println();
 
@@ -169,17 +191,18 @@ public class P04_StringFormatting {
         double pi = 3.14159265358979;
 
         // TODO: 소수점 없이 출력 (%.0f)
-
+        System.out.printf("소수점 없음  :         %.0f\n", pi);
         // TODO: 소수점 1자리 출력 (%.1f)
-
+        System.out.printf("소수점 1자리 :       %.1f\n", pi);
         // TODO: 소수점 2자리 출력 (%.2f)
-
+        System.out.printf("소수점 2자리 :      %.2f\n", pi);
         // TODO: 소수점 4자리 출력 (%.4f)
-
+        System.out.printf("소수점 4자리 :    %.4f\n", pi);
         // TODO: 소수점 8자리 출력 (%.8f)
+        System.out.printf("소수점 8자리 : %.8f\n", pi);
 
         // TODO: 전체 너비 12, 소수점 4자리 오른쪽 정렬 출력 (%12.4f)
-
+        System.out.printf("너비12/소수4 :       %12.4f\n", pi);
         System.out.println();
 
         // ====================================================
@@ -221,10 +244,14 @@ public class P04_StringFormatting {
         int[]    mathScores   = {78, 95, 82};
 
         // TODO: 헤더 행 출력 (%-8s 형식)
-
+        System.out.printf("%-8s%6s%6s%6s%8s\n", "이름", "국어", "영어", "수학", "평균");
         // TODO: 구분선 출력
-
+        System.out.println("-----------------------------------------------");
         // TODO: for 루프로 각 학생 행 출력 (평균 계산 포함)
+        for (int i=0; i<koreanScores.length; i++) {
+            double avg = ((double)(koreanScores[i] + englishScores[i] + mathScores[i]))/(double)koreanScores.length;
+            System.out.printf("%-8s %6d %6d %6d %8.1f \n", names[i], koreanScores[i], englishScores[i], mathScores[i], avg);
+        }
 
     }
 }
