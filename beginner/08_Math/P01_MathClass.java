@@ -63,15 +63,15 @@ public class P01_MathClass {
         System.out.println("=== 문제 1: 절댓값, 최댓값, 최솟값 ===");
 
         // TODO: -37의 절댓값 계산 후 출력
-
+        System.out.println("-37의 절댓값: " + Math.abs(-37));
         // TODO: -3.14의 절댓값 계산 후 출력
-
+        System.out.println("-3.14의 절댓값: " + Math.abs(-3.14));
         // TODO: 23과 57 중 최댓값 출력
-
+        System.out.println("23과 57 중 최댓값: " + Math.max(23, 57));
         // TODO: 23과 57 중 최솟값 출력
-
+        System.out.println("23과 57 중 최솟값: " + Math.min(23, 57));
         // TODO: 10, 45, 28 중 최댓값 출력 (Math.max 중첩 사용)
-
+        System.out.println("10, 45, 28 중 최댓값: " + Math.max(Math.max(10, 45), 28));
         System.out.println();
 
         // ============================================================
@@ -107,15 +107,15 @@ public class P01_MathClass {
         System.out.println("=== 문제 2: 거듭제곱, 제곱근, 세제곱근 ===");
 
         // TODO: 2의 10제곱 출력
-
+        System.out.println("2의 10제곱: " + Math.pow(2, 10));
         // TODO: 3의 4제곱 출력
-
+        System.out.println("3의 4제곱: " + Math.pow(3, 4));
         // TODO: 144의 제곱근 출력
-
+        System.out.println("144의 제곱근: " + Math.sqrt(144));
         // TODO: 27의 세제곱근 출력
-
+        System.out.println("27의 세제곱근: " + Math.cbrt(27));
         // TODO: 피타고라스 정리로 빗변 길이 계산 (a=3, b=4)
-
+        System.out.println("빗변의 길이: " + Math.sqrt(Math.pow(3, 2) + Math.pow(4, 2)));
         System.out.println();
 
         // ============================================================
@@ -151,17 +151,17 @@ public class P01_MathClass {
         System.out.println("값\t\tceil\t\tfloor\t\tround");
 
         // TODO: 3.2에 대한 ceil, floor, round 출력
-
+        System.out.printf("%.1f\t\t%.1f\t\t%.1f\t\t%d\n", 3.2, Math.ceil(3.2), Math.floor(3.2), Math.round(3.2));
         // TODO: 3.5에 대한 ceil, floor, round 출력
-
+        System.out.printf("%.1f\t\t%.1f\t\t%.1f\t\t%d\n", 3.5, Math.ceil(3.5), Math.floor(3.5), Math.round(3.5));
         // TODO: 3.7에 대한 ceil, floor, round 출력
-
+        System.out.printf("%.1f\t\t%.1f\t\t%.1f\t\t%d\n", 3.7, Math.ceil(3.7), Math.floor(3.7), Math.round(3.7));
         // TODO: -3.2에 대한 ceil, floor, round 출력
-
+        System.out.printf("%.1f\t\t%.1f\t\t%.1f\t\t%d\n", -3.2, Math.ceil(-3.2), Math.floor(-3.2), Math.round(-3.2));
         // TODO: -3.5에 대한 ceil, floor, round 출력
-
+        System.out.printf("%.1f\t\t%.1f\t\t%.1f\t\t%d\n", -3.5, Math.ceil(-3.5), Math.floor(-3.5), Math.round(-3.5));
         // TODO: -3.7에 대한 ceil, floor, round 출력
-
+        System.out.printf("%.1f\t\t%.1f\t\t%.1f\t\t%d\n", -3.7, Math.ceil(-3.7), Math.floor(-3.7), Math.round(-3.7));
         System.out.println();
 
         // ============================================================
@@ -197,11 +197,18 @@ public class P01_MathClass {
         System.out.println("=== 문제 4: 원의 넓이와 둘레 계산 ===");
 
         // TODO: 반지름 변수 선언 (r1 = 5, r2 = 10)
-
+        System.out.println("반지름 5인 원:");
+        System.out.print("  넓이 = ");
+        System.out.printf("%.2f\n", calculateCircleArea(5));
         // TODO: 반지름 5인 원의 넓이, 둘레 계산 및 출력 (소수점 2자리)
-
+        System.out.print("  둘레 = ");
+        System.out.printf("%.2f\n", calculateCirclePerimeter(5));
         // TODO: 반지름 10인 원의 넓이, 둘레 계산 및 출력 (소수점 2자리)
-
+        System.out.println("반지름 10인 원:");
+        System.out.print("  넓이 = ");
+        System.out.printf("%.2f\n", calculateCircleArea(10));
+        System.out.print("  둘레 = ");
+        System.out.printf("%.2f\n", calculateCirclePerimeter(10));
     } // main 끝
 
     /*
@@ -211,7 +218,7 @@ public class P01_MathClass {
      */
     static double calculateCircleArea(double radius) {
         // TODO: Math.PI를 이용하여 원의 넓이 반환
-        return 0.0;
+        return ((Math.pow(radius,2))*Math.PI);
     }
 
     /*
@@ -221,7 +228,7 @@ public class P01_MathClass {
      */
     static double calculateCirclePerimeter(double radius) {
         // TODO: Math.PI를 이용하여 원의 둘레 반환
-        return 0.0;
+        return (2*radius*Math.PI);
     }
 
 } // 클래스 끝
