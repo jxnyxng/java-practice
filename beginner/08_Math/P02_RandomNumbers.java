@@ -63,13 +63,18 @@ public class P02_RandomNumbers {
         System.out.println("=== 문제 1: Math.random() 난수 생성 ===");
 
         // TODO: 0~100 사이 정수 난수 생성 및 출력
-
+        System.out.println("0~100 난수: " + (int)(Math.random() * 101));
         // TODO: 주사위 난수(1~6) 생성 및 출력
-
+        System.out.println("주사위(1~6): " + (int)(Math.random() * 6) + 1);
         // TODO: 50~100 사이 정수 난수 생성 및 출력
-
+        System.out.println("50~100 난수: " + (int)(Math.random() * 51) + 50);
         // TODO: for 반복문으로 각각 5번씩 출력
-
+        System.out.println("=======");
+        for (int i=0; i<5; i++){
+            System.out.println("0~100 난수: " + (int)(Math.random() * 101));
+            System.out.println("주사위(1~6): " + (int)(Math.random() * 6) + 1);
+            System.out.println("50~100 난수: " + (int)(Math.random() * 51) + 50);
+        }
         System.out.println();
 
         // ============================================================
