@@ -63,13 +63,18 @@ public class P02_RandomNumbers {
         System.out.println("=== 문제 1: Math.random() 난수 생성 ===");
 
         // TODO: 0~100 사이 정수 난수 생성 및 출력
-
+        System.out.println("0~100 난수: " + (int)(Math.random() * 101));
         // TODO: 주사위 난수(1~6) 생성 및 출력
-
+        System.out.println("주사위(1~6): " + ((int)(Math.random() * 6) + 1));
         // TODO: 50~100 사이 정수 난수 생성 및 출력
-
+        System.out.println("50~100 난수: " + ((int)(Math.random() * 51) + 50));
         // TODO: for 반복문으로 각각 5번씩 출력
-
+        System.out.println("=======");
+        for (int i = 0; i < 5; i++) {
+            System.out.println("0~100 난수: " + (int)(Math.random() * 101));
+            System.out.println("주사위(1~6): " + ((int)(Math.random() * 6) + 1));
+            System.out.println("50~100 난수: " + ((int)(Math.random() * 51) + 50));
+        }
         System.out.println();
 
         // ============================================================
@@ -107,18 +112,32 @@ public class P02_RandomNumbers {
         System.out.println("=== 문제 2: Random 클래스 활용 ===");
 
         // TODO: Random 객체 생성
-
+        Random rand = new Random();
         // TODO: nextInt(100) 출력
-
+        System.out.println("nextInt(100): " + rand.nextInt(100));
         // TODO: nextInt(100) + 1 출력
-
+        System.out.println("nextInt(100)+1: " + (rand.nextInt(100) + 1));
         // TODO: nextDouble() 출력
-
+        System.out.println("nextDouble(): " + rand.nextDouble());
         // TODO: nextBoolean() 출력
-
+        System.out.println("nextBoolean(): " + rand.nextBoolean());
+        System.out.println();
         System.out.println("--- 시드(42) 테스트 ---");
         // TODO: 시드 42로 두 개의 Random 객체 생성, 각각 nextInt(100) 3번 호출 비교
+        Random rand1 = new Random(42);
+        Random rand2 = new Random(42);
 
+        System.out.print("rand1: ");
+        for (int i = 0; i < 3; i++) {
+            System.out.print(rand1.nextInt(100) + " ");
+        }
+        System.out.println();
+
+        System.out.print("rand2: ");
+        for (int i = 0; i < 3; i++) {
+            System.out.print(rand2.nextInt(100) + " ");
+        }
+        System.out.println();
         System.out.println();
 
         // ============================================================
@@ -149,13 +168,25 @@ public class P02_RandomNumbers {
         System.out.println("=== 문제 3: 로또 번호 생성 ===");
 
         // TODO: 로또 번호 배열 선언 (크기 6)
-
+        int[] lottoNums = new int[6];
         // TODO: while 또는 for 루프로 중복 없는 번호 6개 생성
+        Random r = new Random();
+        int cnt = 0;
+        while (true) {
+            if (cnt == 6) break;
 
+            int num = r.nextInt(1, 46);
+            if (isDuplicate(lottoNums, cnt, num)){
+                continue;
+            }
+
+            lottoNums[cnt] = num;
+            cnt++;
+        }
         // TODO: 오름차순 정렬
-
+        Arrays.sort(lottoNums);
         // TODO: 로또 번호 출력
-
+        System.out.println("이번 주 로또 번호: " + Arrays.toString(lottoNums));
         System.out.println();
 
         // ============================================================
@@ -193,16 +224,30 @@ public class P02_RandomNumbers {
         System.out.println("=== 문제 4: 주사위 2개 시뮬레이션 (100회) ===");
 
         // TODO: 합 카운트 배열 선언 (크기 13, 인덱스 2~12 사용)
-
+        int[] counts = new int[13];
         // TODO: 더블 카운트 변수 선언
-
+        int cnt1 = 0;
+        int cnt2 = 0;
+        int dCnt = 0;
         // TODO: 100번 반복하여 주사위 2개 굴리기 및 통계 수집
-
+        System.out.println("주사위 시뮬레이션 (100회)");
+        for (int i=0; i<100; i++){
+            cnt1 = r.nextInt(1, 7);
+            cnt2 = r.nextInt(1, 7);
+            counts[cnt1+cnt2]++;
+            if (cnt1 == cnt2) dCnt++;
+        }
         // TODO: 합별 출현 횟수 출력
-
+        System.out.println("합별 출현 횟수:");
+        for (int i=2; i<13; i++){
+            System.out.println("합  " + i + ": " + counts[i] + "회");
+        }
         // TODO: 더블 횟수 출력
-
+        System.out.println("더블(같은 숫자) 횟수: " + dCnt);
         // TODO: 가장 많이 나온 합 찾아서 출력
+        int maxIdx = indexOfMax(counts);
+
+        System.out.println("가장 많이 나온 합: " + maxIdx + " (" + counts[maxIdx] + "회)");
 
     } // main 끝
 
@@ -215,6 +260,12 @@ public class P02_RandomNumbers {
      */
     static boolean isDuplicate(int[] arr, int count, int value) {
         // TODO: arr[0]부터 arr[count-1]까지 value와 같은 값이 있으면 true 반환
+
+        for (int i = 0; i < count; i++){
+            if (arr[i] == value) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -225,7 +276,17 @@ public class P02_RandomNumbers {
      */
     static int indexOfMax(int[] arr) {
         // TODO: 배열을 순회하여 최댓값의 인덱스 반환
-        return 0;
+        int maxCnt = 0;
+        int maxIdx = 0;
+
+        for (int i=2; i<13; i++){
+            if (maxCnt<arr[i]) {
+                maxCnt = arr[i];
+                maxIdx = i;
+            }
+        }
+
+        return maxIdx;
     }
 
 } // 클래스 끝
