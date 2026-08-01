@@ -63,12 +63,24 @@ public class P02_ExplicitCasting {
         System.out.println("=== 문제 1: double → int 강제 변환 ===");
 
         // TODO: double 값 3.14를 int로 변환 후 출력
+        double d1 = 3.14;
+        int i1 = (int)d1;
+        System.out.println("(int)3.14  = " + i1 + "  (소수점 버림)");
 
         // TODO: double 값 3.99를 int로 변환 후 출력
+        double d2 = 3.99;
+        int i2 = (int)d2;
+        System.out.println("(int)3.99  = " + i2 + "  (반올림 아님!)");
 
         // TODO: double 값 -3.7을 int로 변환 후 출력
+        double d3 = -3.7;
+        int i3 = (int)d3;
+        System.out.println("(int)-3.7  = " + i3 + " (0 방향으로 절삭)");
 
         // TODO: 가격 12345.678의 정수 부분 추출 후 출력
+        double price = 12345.678;
+        int priceInt = (int)price;
+        System.out.println("가격 정수부분: " + priceInt);
 
         System.out.println();
 
@@ -105,12 +117,25 @@ public class P02_ExplicitCasting {
         System.out.println("=== 문제 2: int → byte 강제 변환 (오버플로우) ===");
 
         // TODO: (byte)100 출력 (정상 범위)
+        int num100 = 100;
+        byte byte100 = (byte)num100;
+        System.out.println("(byte)100  = " + byte100 + "  (정상)");
 
         // TODO: (byte)128 출력 (오버플로우 시작)
+        int num128 = 128;
+        byte byte128 = (byte)num128;
+        System.out.println("(byte)128  = " + byte128 + " (오버플로우!)");
 
         // TODO: (byte)200 출력 (오버플로우)
+        int num200 = 200;
+        byte byte200 = (byte)num200;
+        System.out.println("(byte)200  = " + byte200 + "  (오버플로우!)");
 
         // TODO: (byte)-129 출력 (언더플로우)
+        int numMinus129 = -129;
+        byte byteMinus129 = (byte)numMinus129;
+        System.out.println("(byte)-129 = " + byteMinus129 + "  (언더플로우!)");
+        // int를 byte로 변환하면 하위 8비트만 남기므로 byte 범위를 벗어난 값은 순환됩니다.
 
         System.out.println();
 
@@ -149,12 +174,18 @@ public class P02_ExplicitCasting {
         System.out.println("--------------------------------------");
 
         // TODO: (int) 캐스팅 결과 출력 (3.7, -3.7)
+        double positive = 3.7;
+        double negative = -3.7;
+        System.out.println("(int) 캐스팅:      " + (int)positive + "      " + (int)negative);
 
         // TODO: Math.round() 결과 출력 (3.7, -3.7)
+        System.out.println("Math.round():     " + Math.round(positive) + "      " + Math.round(negative));
 
         // TODO: Math.floor() 결과 출력 (3.7, -3.7)
+        System.out.println("Math.floor():     " + (int)Math.floor(positive) + "      " + (int)Math.floor(negative));
 
         // TODO: Math.ceil() 결과 출력 (3.7, -3.7)
+        System.out.println("Math.ceil():      " + (int)Math.ceil(positive) + "      " + (int)Math.ceil(negative));
 
         System.out.println();
 
@@ -194,16 +225,33 @@ public class P02_ExplicitCasting {
         System.out.println("=== 문제 4: char ↔ int 강제 변환 ===");
 
         // TODO: 'A'를 int로 변환 후 출력
+        char upperA = 'A';
+        int upperACode = upperA;
+        System.out.println("'A'의 int 값: " + upperACode);
 
         // TODO: int 65를 char로 강제 변환 후 출력
+        int code65 = 65;
+        char char65 = (char)code65;
+        System.out.println("65를 char로: " + char65);
 
         // TODO: int 44032를 char로 변환 후 출력 (한글 '가')
+        int hangulCode = 44032;
+        char hangulGa = (char)hangulCode;
+        System.out.println("44032를 char로: " + hangulGa);
 
         // TODO: '가', '힣'의 유니코드 값 출력
+        System.out.println("'가'의 유니코드: " + (int)'가');
+        System.out.println("'힣'의 유니코드: " + (int)'힣');
 
         // TODO: 소문자 'a'를 대문자 'A'로 변환 출력
+        char lowerA = 'a';
+        char convertedUpperA = toUpperCase(lowerA);
+        System.out.println("'a' → 'A': " + (int)lowerA + " → " + (int)convertedUpperA);
 
         // TODO: 대문자 'Z'를 소문자 'z'로 변환 출력
+        char upperZ = 'Z';
+        char convertedLowerZ = toLowerCase(upperZ);
+        System.out.println("'Z' → 'z': " + upperZ + " → " + convertedLowerZ);
 
     } // main 끝
 
@@ -214,6 +262,9 @@ public class P02_ExplicitCasting {
      */
     static char toUpperCase(char ch) {
         // TODO: ch가 소문자(a~z)이면 대문자로 변환하여 반환, 아니면 그대로 반환
+        if (ch >= 'a' && ch <= 'z') {
+            return (char)(ch - 32);
+        }
         return ch;
     }
 
@@ -224,6 +275,9 @@ public class P02_ExplicitCasting {
      */
     static char toLowerCase(char ch) {
         // TODO: ch가 대문자(A~Z)이면 소문자로 변환하여 반환, 아니면 그대로 반환
+        if (ch >= 'A' && ch <= 'Z') {
+            return (char)(ch + 32);
+        }
         return ch;
     }
 

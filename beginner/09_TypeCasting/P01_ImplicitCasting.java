@@ -67,18 +67,29 @@ public class P01_ImplicitCasting {
         System.out.println("=== 문제 1: 자동 변환 체인 ===");
 
         // TODO: byte 변수 선언 및 초기화 (값: 100)
-
+        byte byteVal = 100;
         // TODO: short 변수에 byte 값 대입 (자동 변환)
+        short shortVal = byteVal;
 
         // TODO: int 변수에 short 값 대입 (자동 변환)
+        int intVal = shortVal;
 
         // TODO: long 변수에 int 값 대입 (자동 변환)
+        long longVal = intVal;
 
         // TODO: float 변수에 long 값 대입 (자동 변환)
+        float floatVal = longVal;
 
         // TODO: double 변수에 float 값 대입 (자동 변환)
+        double doubleVal = floatVal;
 
         // TODO: 각 변수 타입과 값 출력
+        System.out.println("byte   값: " + byteVal);
+        System.out.println("short  값: " + shortVal);
+        System.out.println("int    값: " + intVal);
+        System.out.println("long   값: " + longVal);
+        System.out.println("float  값: " + floatVal);
+        System.out.println("double 값: " + doubleVal);
 
         System.out.println();
 
@@ -114,12 +125,25 @@ public class P01_ImplicitCasting {
         System.out.println("=== 문제 2: 산술 연산과 자동 타입 변환 ===");
 
         // TODO: int a = 10, double b = 3.14 선언
+        int a = 10;
+        double b = 3.14;
 
         // TODO: a + b 결과를 double 변수에 저장 후 출력
+        double result = a + b;
+        System.out.println("int + double = " + result + " (타입: double)");
+        // int wrongResult = a + b; // 컴파일 오류: double 결과를 int에 자동 대입할 수 없음
 
         // TODO: 정수 나눗셈 vs 실수 나눗셈 비교 (c=7, d=2)
+        int c = 7;
+        int d = 2;
+        System.out.println("정수 나눗셈 7/2 = " + (c / d));
+        System.out.println("실수 나눗셈 7.0/2 = " + ((double)c / d));
 
         // TODO: byte + byte 결과가 int임을 보여주기 (int 변수에 저장)
+        byte x = 10;
+        byte y = 20;
+        int byteSum = x + y;
+        System.out.println("byte + byte의 결과 타입은 int: " + byteSum);
 
         System.out.println();
 
@@ -155,14 +179,27 @@ public class P01_ImplicitCasting {
         System.out.println("=== 문제 3: char와 int 변환 ===");
 
         // TODO: char ch = 'A' 선언 및 출력
+        char ch = 'A';
+        System.out.println("ch = " + ch);
 
         // TODO: 'A'의 유니코드 값을 int 변수에 저장 후 출력
+        int code = ch;
+        System.out.println("'A'의 유니코드: " + code);
 
         // TODO: 'A' + 1 결과를 char에 저장 후 출력
+        char next = (char)(ch + 1);
+        System.out.println("'A' + 1 = " + next);
 
         // TODO: 'a', 'z', '0', '9'의 유니코드 값 출력
+        System.out.println("'a' = " + (int)'a' + ", 'z' = " + (int)'z'
+                + ", '0' = " + (int)'0' + ", '9' = " + (int)'9');
 
         // TODO: 65~90 반복문으로 A~Z 출력
+        System.out.print("알파벳: ");
+        for (int i = 65; i <= 90; i++) {
+            System.out.print((char)i + " ");
+        }
+        System.out.println();
 
         System.out.println();
 
@@ -200,14 +237,23 @@ public class P01_ImplicitCasting {
         System.out.println("=== 문제 4: 문자열 연결과 자동 타입 변환 ===");
 
         // TODO: "결과: " + 3 + 4 출력 (결과: 34 예상)
+        System.out.println("\"결과: \" + 3 + 4  = " + ("결과: " + 3 + 4));
 
         // TODO: "결과: " + (3 + 4) 출력 (결과: 7 예상)
+        System.out.println("\"결과: \" + (3+4)  = " + ("결과: " + (3 + 4)));
 
         // TODO: 3 + 4 + "입니다" 출력 (7입니다 예상)
+        System.out.println("3 + 4 + \"입니다\"  = " + (3 + 4 + "입니다"));
 
         // TODO: boolean, double, char를 문자열에 연결하여 출력
+        System.out.println("boolean 자동변환: " + true);
+        System.out.println("double 자동변환: " + 3.14);
+        System.out.println("char 자동변환: " + 'A');
 
         // TODO: int num = 100; "점수: " + num 출력
+        int num = 100;
+        String str = "점수: " + num;
+        System.out.println(str);
 
     } // main 끝
 
@@ -218,6 +264,7 @@ public class P01_ImplicitCasting {
      */
     static void printTypeInfo(String label, double value) {
         // TODO: label과 value를 포맷에 맞게 출력
+        System.out.println(label + " 값: " + value);
     }
 
 } // 클래스 끝
