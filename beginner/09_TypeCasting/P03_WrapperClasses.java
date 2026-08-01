@@ -73,24 +73,42 @@ public class P03_WrapperClasses {
          * 힌트:
          *   - Integer obj = 42; // 오토박싱
          *   - int val = obj;    // 언박싱
-         *   - Integer a = new Integer(100); Integer b = new Integer(100);
-         *   - a == b → false (다른 객체), a.equals(b) → true (같은 값)
+         *   - Integer a = 1000; Integer b = 1000;
+         *   - a == b → false (캐싱 범위 초과), a.equals(b) → true (같은 값)
          *   - 주의: Integer a = 127; Integer b = 127; a == b → true (캐싱 범위)
          *           Integer a = 128; Integer b = 128; a == b → false (캐싱 범위 초과)
          */
         System.out.println("=== 문제 1: 오토박싱과 언박싱 ===");
 
         // TODO: int를 Integer로 오토박싱
+        int primitiveInt = 42;
+        Integer boxedInt = primitiveInt;
+        System.out.println("오토박싱: int " + primitiveInt + " → Integer " + boxedInt);
 
         // TODO: Integer를 int로 언박싱
+        Integer integerObj = 100;
+        int unboxedInt = integerObj;
+        System.out.println("언박싱:  Integer " + integerObj + " → int " + unboxedInt);
 
         // TODO: double → Double 오토박싱
+        double primitiveDouble = 3.14;
+        Double boxedDouble = primitiveDouble;
 
         // TODO: Double → double 언박싱
+        double unboxedDouble = boxedDouble;
+        System.out.println("Double 오토박싱/언박싱: " + unboxedDouble);
 
         // TODO: boolean → Boolean, Boolean → boolean 오토박싱/언박싱
+        boolean primitiveBoolean = true;
+        Boolean boxedBoolean = primitiveBoolean;
+        boolean unboxedBoolean = boxedBoolean;
+        System.out.println("Boolean 오토박싱/언박싱: " + unboxedBoolean);
 
         // TODO: Integer 객체 두 개 생성하여 == 과 .equals() 비교
+        Integer obj1 = 1000;
+        Integer obj2 = 1000;
+        System.out.println("Integer 1000 == Integer 1000 (캐싱 범위 초과): " + (obj1 == obj2));
+        System.out.println("Integer 1000 .equals() Integer 1000: " + obj1.equals(obj2));
 
         System.out.println();
 
@@ -131,16 +149,33 @@ public class P03_WrapperClasses {
         System.out.println("=== 문제 2: String → 기본 타입 변환 ===");
 
         // TODO: "123" 을 int로 파싱 후 출력
+        int parsedInt = Integer.parseInt("123");
+        System.out.println("\"123\" → int: " + parsedInt);
 
         // TODO: "3.14"를 double로 파싱 후 출력
+        double parsedDouble = Double.parseDouble("3.14");
+        System.out.println("\"3.14\" → double: " + parsedDouble);
 
         // TODO: "true"를 boolean으로 파싱 후 출력
+        boolean parsedBoolean = Boolean.parseBoolean("true");
+        System.out.println("\"true\" → boolean: " + parsedBoolean);
 
         // TODO: "9876543210"을 long으로 파싱 후 출력
+        long parsedLong = Long.parseLong("9876543210");
+        System.out.println("\"9876543210\" → long: " + parsedLong);
 
         // TODO: 파싱된 int + double 계산 후 출력
+        System.out.println("123 + 3.14 = " + (parsedInt + parsedDouble));
 
         // TODO: try-catch로 잘못된 문자열 변환 예외 처리
+        try {
+            int invalidNumber = Integer.parseInt("abc");
+            System.out.println(invalidNumber);
+        } catch (NumberFormatException e) {
+            System.out.println("잘못된 변환 시도: \"abc\" → NumberFormatException 발생!");
+        }
+        System.out.println("isNumeric(\"123\"): " + isNumeric("123"));
+        System.out.println("isNumeric(\"abc\"): " + isNumeric("abc"));
 
         System.out.println();
 
@@ -185,16 +220,31 @@ public class P03_WrapperClasses {
         System.out.println("=== 문제 3: int → String 변환 방법 ===");
 
         // TODO: String.valueOf(42) 출력 및 길이 확인
+        int number = 42;
+        String str1 = String.valueOf(number);
+        System.out.println("String.valueOf(42): \"" + str1 + "\" (길이: " + str1.length() + ")");
 
         // TODO: Integer.toString(42) 출력 및 길이 확인
+        String str2 = Integer.toString(number);
+        System.out.println("Integer.toString(42): \"" + str2 + "\" (길이: " + str2.length() + ")");
 
         // TODO: "" + 42 출력 및 길이 확인
+        String str3 = "" + number;
+        System.out.println("\"\" + 42: \"" + str3 + "\" (길이: " + str3.length() + ")");
 
         // TODO: String.format("%d", 42) 출력 및 길이 확인
+        String str4 = String.format("%d", number);
+        System.out.println("String.format: \"" + str4 + "\" (길이: " + str4.length() + ")");
 
         // TODO: double 3.14를 String으로 변환
+        String doubleString = String.valueOf(3.14);
+        System.out.println("String.valueOf(3.14): \"" + doubleString + "\"");
 
         // TODO: 255를 2진수, 8진수, 16진수 문자열로 변환 출력
+        int value = 255;
+        System.out.println("255의 2진수: " + Integer.toBinaryString(value));
+        System.out.println("255의 8진수: " + Integer.toOctalString(value));
+        System.out.println("255의 16진수: " + Integer.toHexString(value));
 
         System.out.println();
 
@@ -241,20 +291,35 @@ public class P03_WrapperClasses {
         System.out.println("=== 문제 4: 래퍼 클래스 상수와 유틸리티 메소드 ===");
 
         // TODO: Byte, Short, Integer, Long의 MAX_VALUE, MIN_VALUE 출력
+        System.out.println("Byte: " + Byte.MIN_VALUE + " ~ " + Byte.MAX_VALUE);
+        System.out.println("Short: " + Short.MIN_VALUE + " ~ " + Short.MAX_VALUE);
+        System.out.println("Integer: " + Integer.MIN_VALUE + " ~ " + Integer.MAX_VALUE);
+        System.out.println("Long: " + Long.MIN_VALUE + " ~ " + Long.MAX_VALUE);
 
         // TODO: 255의 2진수 문자열 출력
+        System.out.println("255의 2진수: " + Integer.toBinaryString(255));
 
         // TODO: 255의 16진수 문자열 출력
+        System.out.println("255의 16진수: " + Integer.toHexString(255));
 
         // TODO: 255에서 1인 비트 수 출력 (Integer.bitCount)
+        System.out.println("255에서 1인 비트 수: " + Integer.bitCount(255));
 
         // TODO: 0.0/0.0 이 NaN인지 확인 (Double.isNaN)
+        System.out.println("0.0/0.0 is NaN: " + Double.isNaN(0.0 / 0.0));
 
         // TODO: 1.0/0.0 이 무한대인지 확인 (Double.isInfinite)
+        System.out.println("1.0/0.0 is Infinite: " + Double.isInfinite(1.0 / 0.0));
 
         // TODO: Integer.compare(10, 20) 결과 출력
+        System.out.println("compare(10, 20): " + Integer.compare(10, 20));
 
         // TODO: Integer.sum, Integer.max, Integer.min 결과 출력
+        System.out.println("sum(10, 20): " + Integer.sum(10, 20)
+                + ", max(10, 20): " + Integer.max(10, 20)
+                + ", min(10, 20): " + Integer.min(10, 20));
+        int[] scores = { 80, 95, 70, 100, 85 };
+        System.out.println("배열의 최댓값: " + maxOfArray(scores));
 
     } // main 끝
 
@@ -265,7 +330,12 @@ public class P03_WrapperClasses {
      */
     static boolean isNumeric(String str) {
         // TODO: Integer.parseInt를 try-catch로 시도하여 성공 여부 반환
-        return false;
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /*
@@ -275,7 +345,11 @@ public class P03_WrapperClasses {
      */
     static int maxOfArray(int[] arr) {
         // TODO: Integer.MIN_VALUE로 초기화 후 Integer.max로 최댓값 탐색
-        return 0;
+        int max = Integer.MIN_VALUE;
+        for (int value : arr) {
+            max = Integer.max(max, value);
+        }
+        return max;
     }
 
 } // 클래스 끝
