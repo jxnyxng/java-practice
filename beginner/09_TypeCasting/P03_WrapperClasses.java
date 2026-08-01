@@ -73,8 +73,8 @@ public class P03_WrapperClasses {
          * 힌트:
          *   - Integer obj = 42; // 오토박싱
          *   - int val = obj;    // 언박싱
-         *   - Integer a = new Integer(100); Integer b = new Integer(100);
-         *   - a == b → false (다른 객체), a.equals(b) → true (같은 값)
+         *   - Integer a = 1000; Integer b = 1000;
+         *   - a == b → false (캐싱 범위 초과), a.equals(b) → true (같은 값)
          *   - 주의: Integer a = 127; Integer b = 127; a == b → true (캐싱 범위)
          *           Integer a = 128; Integer b = 128; a == b → false (캐싱 범위 초과)
          */
@@ -105,10 +105,10 @@ public class P03_WrapperClasses {
         System.out.println("Boolean 오토박싱/언박싱: " + unboxedBoolean);
 
         // TODO: Integer 객체 두 개 생성하여 == 과 .equals() 비교
-        Integer obj1 = new Integer(100);
-        Integer obj2 = new Integer(100);
-        System.out.println("Integer 100 == Integer 100 (별도 객체): " + (obj1 == obj2));
-        System.out.println("Integer 100 .equals() Integer 100: " + obj1.equals(obj2));
+        Integer obj1 = 1000;
+        Integer obj2 = 1000;
+        System.out.println("Integer 1000 == Integer 1000 (캐싱 범위 초과): " + (obj1 == obj2));
+        System.out.println("Integer 1000 .equals() Integer 1000: " + obj1.equals(obj2));
 
         System.out.println();
 
@@ -174,6 +174,8 @@ public class P03_WrapperClasses {
         } catch (NumberFormatException e) {
             System.out.println("잘못된 변환 시도: \"abc\" → NumberFormatException 발생!");
         }
+        System.out.println("isNumeric(\"123\"): " + isNumeric("123"));
+        System.out.println("isNumeric(\"abc\"): " + isNumeric("abc"));
 
         System.out.println();
 
@@ -316,6 +318,8 @@ public class P03_WrapperClasses {
         System.out.println("sum(10, 20): " + Integer.sum(10, 20)
                 + ", max(10, 20): " + Integer.max(10, 20)
                 + ", min(10, 20): " + Integer.min(10, 20));
+        int[] scores = { 80, 95, 70, 100, 85 };
+        System.out.println("배열의 최댓값: " + maxOfArray(scores));
 
     } // main 끝
 
