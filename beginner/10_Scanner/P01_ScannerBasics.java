@@ -76,17 +76,21 @@ public class P01_ScannerBasics {
         System.out.println("=== 문제 1: 두 정수 사칙연산 ===");
 
         // TODO: 첫 번째 정수 입력 안내 및 nextInt()로 입력받기
-
+        System.out.print("첫 번째 정수를 입력하세요: ");
+        int num1 = sc.nextInt();
         // TODO: 두 번째 정수 입력 안내 및 nextInt()로 입력받기
-
+        System.out.print("두 번째 정수를 입력하세요: ");
+        int num2 = sc.nextInt();
         // TODO: 덧셈 결과 출력
-
+        System.out.println(num1 + " + " + num2 + " = " + (num1+num2));
         // TODO: 뺄셈 결과 출력
-
+        System.out.println(num1 + " - " + num2 + " = " + (num1-num2));
         // TODO: 곱셈 결과 출력
-
+        System.out.println(num1 + " * " + num2 + " = " + (num1*num2));
         // TODO: 나눗셈 결과 출력 (0 나누기 방지 조건 포함)
-
+        if(num2!=0) {
+            System.out.println(num1 + " / " + num2 + " = " + (num1 / num2) + " (나머지: " + (num1%num2) + ")");
+        }
         System.out.println();
 
         // ============================================================
@@ -124,19 +128,29 @@ public class P01_ScannerBasics {
         System.out.println("=== 문제 2: 문장 입력 후 단어 분석 ===");
 
         // TODO: 문제 1에서 버퍼에 남은 개행문자 처리 (sc.nextLine() 한 번 호출)
-
+        sc.nextLine();
         // TODO: 문장 입력 안내 및 nextLine()으로 입력받기
-
+        System.out.print("문장을 입력하세요: ");
+        String line = sc.nextLine();
         // TODO: 빈 문장 여부 확인
-
-        // TODO: split(" ")으로 단어 배열 생성
-
-        // TODO: 단어 수 출력
-
-        // TODO: 각 단어를 번호와 함께 출력
-
-        // TODO: 가장 긴 단어 찾아 출력
-
+        String longestWords = "";
+        if (line.trim().isEmpty()) {
+            System.out.println("빈 문장입니다.");
+        } else {
+            // TODO: split(" ")으로 단어 배열 생성
+            String[] words = line.split(" ");
+            // TODO: 단어 수 출력
+            System.out.println("단어 수: " + words.length);
+            // TODO: 각 단어를 번호와 함께 출력
+            for(int i=1; i<words.length+1; i++){
+                System.out.println(i + "번 단어: " + words[i-1]);
+                if (words[i-1].length()>longestWords.length()){
+                    longestWords = words[i-1];
+                }
+            }
+            // TODO: 가장 긴 단어 찾아 출력
+            System.out.println("가장 긴 단어: " + longestWords + " (" + longestWords.length() + "글자)");
+        }
         System.out.println();
 
         // ============================================================
@@ -175,14 +189,19 @@ public class P01_ScannerBasics {
         System.out.println("=== 문제 3: next() vs nextLine() 차이 ===");
 
         // TODO: next()로 이름 입력받기 (공백 포함 입력 시 차이 확인)
-
+        System.out.print("이름을 입력하세요 (next 사용): ");
+        String name = sc.next();
+        System.out.println("읽힌 이름(next): " + name);
         // TODO: nextInt()로 나이 입력받기
-
+        System.out.print("나이를 입력하세요: ");
+        int age = sc.nextInt();
         // TODO: sc.nextLine()으로 버퍼의 개행문자 제거
-
+        sc.nextLine();
         // TODO: nextLine()으로 자기소개 전체 입력받기
-
+        System.out.print("자기소개를 입력하세요 (nextLine): ");
+        String PR = sc.nextLine();
         // TODO: 입력받은 정보 출력
+        System.out.println("이름: " + name + ", 나이: " + age + ", 소개: " + PR);
 
         System.out.println();
 
@@ -225,13 +244,29 @@ public class P01_ScannerBasics {
         System.out.println("숫자를 입력하세요 (0 입력 시 종료):");
 
         // TODO: 합계와 카운트 변수 초기화
-
+        int sum = 0; int count = 0;
         // TODO: while 루프로 반복 입력 처리 (0 입력 시 break)
-
+        while (true) {
+            System.out.print("입력: ");
+            int num = sc.nextInt();
+            if (num == 0) { break;}
+            sum += num;
+            count++;
+        }
         // TODO: 입력 횟수가 0인 경우 처리
-
-        // TODO: 합계, 입력 횟수, 평균 출력
-
+        System.out.println("---결과---");
+        if (count==0){
+            System.out.println("입력된 숫자가 없습니다.");
+        } else {
+            // TODO: 합계, 입력 횟수, 평균 출력
+            System.out.print("입력 횟수: ");
+            System.out.println(count);
+            System.out.print("합계: ");
+            System.out.println(sum);
+            System.out.print("평균: ");
+            System.out.println((double) sum / count);
+            System.out.println();
+        }
         // Scanner 자원 해제
         sc.close();
 
