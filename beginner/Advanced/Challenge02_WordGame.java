@@ -169,7 +169,7 @@ public class Challenge02_WordGame {
         System.out.println("\n=== 모음/자음 개수 ===");
         String testWord = "Hello Beautiful World";
         // TODO: testWord의 모음과 자음 개수를 출력하세요.
-        //   예: 모음: 7개, 자음: 10개
+        //   예: 모음: 8개, 자음: 11개
 
         // [3] 단어 뒤집기
         System.out.println("\n=== 단어 뒤집기 ===");
