@@ -36,8 +36,11 @@ public class Challenge01_GradeCalculator {
      * - 정수 나눗셈에 주의: double로 캐스팅 필요
      */
     public static double calculateAverage(int[] scores) {
-        // TODO: 구현
-        return 0;
+        int sum = 0;
+        for(int s : scores){
+            sum += s;
+        }
+        return (double)sum/scores.length;
     }
 
     // ============================================================
@@ -48,16 +51,26 @@ public class Challenge01_GradeCalculator {
      * 배열에서 최고점을 반환하는 메서드를 작성하세요.
      */
     public static int findMax(int[] scores) {
-        // TODO: 구현 (배열 첫 번째 값을 기준으로 비교 반복)
-        return 0;
+        int max = scores[0];
+        for(int s : scores){
+            if (max < s) {
+                max = s;
+            }
+        }
+        return max;
     }
 
     /**
      * 배열에서 최저점을 반환하는 메서드를 작성하세요.
      */
     public static int findMin(int[] scores) {
-        // TODO: 구현
-        return 0;
+        int min = scores[0];
+        for(int s : scores){
+            if (min > s) {
+                min = s;
+            }
+        }
+        return min;
     }
 
     // ============================================================
@@ -77,8 +90,13 @@ public class Challenge01_GradeCalculator {
      * 힌트: if-else if 또는 switch 사용 (score / 10 으로 switch 가능)
      */
     public static String getGrade(int score) {
-        // TODO: 구현
-        return "";
+        return switch (score / 10) {
+            case 9, 10 -> "A";
+            case 8 -> "B";
+            case 7 -> "C";
+            case 6 -> "D";
+            default -> "F";
+        };
     }
 
     // ============================================================
@@ -100,7 +118,20 @@ public class Challenge01_GradeCalculator {
      * - getGrade() 메서드를 재활용하면 편리
      */
     public static void printGradeDistribution(int[] scores) {
-        // TODO: 구현
+        int[] cntGrade = new int[5];
+        for (int s : scores) {
+            switch (getGrade(s)) {
+                case "A" -> cntGrade[0]++;
+                case "B" -> cntGrade[1]++;
+                case "C" -> cntGrade[2]++;
+                case "D" -> cntGrade[3]++;
+                default  -> cntGrade[4]++;
+            }
+        }
+        char[] grades = {'A', 'B', 'C', 'D', 'F'};
+        for (int i = 0; i < grades.length; i++) {
+            System.out.println(grades[i] + ": " + cntGrade[i] + "명");
+        }
     }
 
     // ============================================================
@@ -129,7 +160,16 @@ public class Challenge01_GradeCalculator {
      * - calculateAverage(), findMax(), findMin(), getGrade() 재활용
      */
     public static void printReport(String[] names, int[] scores) {
-        // TODO: 구현
+        System.out.println("------------------------");
+        System.out.println("성적 보고서");
+        System.out.println("------------------------");
+        System.out.println(String.format("%-10s %-8s %-6s", "이름", "점수", "등급"));
+        System.out.println("------------------------");
+        for(int i=0; i<names.length; i++){
+            System.out.println(String.format("%-10s %-8d %-6s", names[i], scores[i], getGrade(scores[i])));
+        }
+        System.out.println(String.format("평균: %.2f / 최고: %d / 최저: %d", calculateAverage(scores), findMax(scores), findMin(scores)));
+        System.out.println("------------------------");
     }
 
     // ============================================================
@@ -147,20 +187,28 @@ public class Challenge01_GradeCalculator {
         // [1] 평균 출력
         // TODO: calculateAverage()를 호출하여 평균을 출력하세요.
         //       출력 형식: "전체 평균: 80.7점"
+        System.out.println(String.format("전체 평균: %.1f점", calculateAverage(scores)));
 
         // [2] 최고점 / 최저점 출력
         // TODO: findMax(), findMin()을 호출하여 출력하세요.
         //       출력 형식: "최고점: 95 | 최저점: 63"
+        System.out.println(String.format("최고점: %d | 최저점: %d", findMax(scores), findMin(scores)));
 
         // [3] 성적 보고서 출력
         // TODO: printReport()를 호출하세요.
-
+        printReport(names, scores);
         // [4] 등급 분포 출력
         System.out.println("\n=== 등급 분포 ===");
         // TODO: printGradeDistribution()을 호출하세요.
+        printGradeDistribution(scores);
 
         // [5] 추가 도전: 점수가 평균 이상인 학생 이름만 출력하세요.
         System.out.println("\n=== 평균 이상 학생 ===");
-        // TODO: 평균을 구한 뒤, scores 배열을 순회하며 평균 이상인 학생의 이름을 출력
+        double avg = calculateAverage(scores);
+        for(int i=0; i<scores.length; i++){
+            if (scores[i] >= avg){
+                System.out.println("이름: " + names[i]);
+            }
+        }
     }
 }
