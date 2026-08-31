@@ -51,7 +51,6 @@ public class P01_ClassBasics {
     // TODO: Person 클래스를 아래에 선언하세요 (P01_ClassBasics 클래스 밖에 선언)
     // (파일 하단 또는 별도 섹션에 작성)
 
-
     // ================================================================
     // 문제 2: Car 클래스 만들기
     // ================================================================
@@ -128,13 +127,67 @@ public class P01_ClassBasics {
 
         System.out.println("========== 문제 1: Person 클래스 ==========");
         // TODO: Person 객체를 2개 이상 생성하고 introduce() 메소드를 호출하세요
+        Person p1 = new Person();
+        p1.name = "김철수";
+        p1.age = 25;
+        p1.address = "서울시 강남구";
+        Person p2 = new Person();
+        p2.name = "이영희";
+        p2.age = 30;
+        p2.address = "부산시 해운대구";
+
+        p1.introduce();
+        p2.introduce();
 
         System.out.println("\n========== 문제 2: Car 클래스 ==========");
         // TODO: Car 객체를 3개 생성하고 showInfo() 메소드를 호출하세요
+        Car c1 = new Car();
+        c1.brand = "BMW";
+        c1.model = "520i";
+        c1.year = 2021;
+        c1.price = 5000.0;
+
+        Car c2 = new Car();
+        c2.brand = "현대";
+        c2.model = "아반떼";
+        c2.year = 2026;
+        c2.price = 2800.0;
+
+        Car c3 = new Car();
+        c3.brand = "제네시스";
+        c3.model = "G80";
+        c3.year = 2024;
+        c3.price = 7000.0;
+        c1.showInfo();
+        c2.showInfo();
+        c3.showInfo();
 
         System.out.println("\n========== 문제 3: 객체 배열 ==========");
         // TODO: Student 배열을 생성하고 학생 5명을 저장한 뒤 출력하세요
+        Student[] sarr = new Student[5];
+        String[] names = {"이철수", "김용강", "나웅수", "오찬영", "임재현"};
+        int[] grades = {1, 3, 3, 3, 4};
+        double[] gpas = {4.0, 4.1, 3.9, 4.3, 4.0};
+
+        for(int i=0; i<5; i++){
+            sarr[i] = new Student();
+
+            sarr[i].name = names[i];
+            sarr[i].grade = grades[i];
+            sarr[i].gpa = gpas[i];
+        }
+
+        System.out.println("=== 학생 명단 ===");
+        for(Student s : sarr) {
+            s.printInfo();
+        }
+        System.out.println("=============");
         // TODO: 평균 학점을 계산하여 출력하세요
+        double sum = 0.0;
+        for(Student s : sarr){
+            sum += s.gpa;
+        }
+        System.out.println("평균 학점 = " + sum/5);
     }
 }
 
@@ -145,29 +198,45 @@ public class P01_ClassBasics {
 // TODO: 문제 1 - Person 클래스 선언
 class Person {
     // TODO: 필드 선언 (name, age, address)
+    String name;
+    int age;
+    String address;
 
     // TODO: introduce() 메소드 작성
     void introduce() {
         // TODO: 이름, 나이, 주소를 출력하는 코드 작성
+        System.out.println("안녕하세요! 저는 " + name + "입니다.");
+        System.out.println("나이는 " + age + "살이고, " + address + "에 살고 있습니다.");
     }
 }
 
 // TODO: 문제 2 - Car 클래스 선언
 class Car {
     // TODO: 필드 선언 (brand, model, year, price)
-
+    String brand, model;
+    int year;
+    double price;
     // TODO: showInfo() 메소드 작성
     void showInfo() {
         // TODO: 자동차 정보를 포맷에 맞게 출력하는 코드 작성
+        System.out.println("===== 자동차 정보 =====\n" +
+                " *   브랜드: " + brand + "\n" +
+                " *   모델: " + model + "\n" +
+                " *   연도: " + year + "\n" +
+                " *   가격: " + price + "\n" +
+                "====================");
     }
 }
 
 // TODO: 문제 3 - Student 클래스 선언
 class Student {
     // TODO: 필드 선언 (name, grade, gpa)
-
+    String name;
+    int grade;
+    double gpa;
     // TODO: printInfo() 메소드 작성
     void printInfo() {
         // TODO: 학생 정보를 출력하는 코드 작성
+        System.out.println("이름: " + name + ", 학년: " + grade + ", 학점: " + gpa);
     }
 }
