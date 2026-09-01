@@ -168,20 +168,83 @@ public class P02_ObjectCreation {
 
         System.out.println("========== 문제 1: 독립적인 객체 확인 ==========");
         // TODO: Box 객체 3개 생성, box1 color 변경 후 모든 객체 출력
+        Box b1 = new Box();
+        b1.width = 200;
+        b1.height = 200;
+        b1.color = "RED";
+
+        Box b2 = new Box();
+        b2.width = 150;
+        b2.height = 200;
+        b2.color = "BLUE";
+
+        Box b3 = new Box();
+        b3.width = 150;
+        b3.height = 150;
+        b3.color = "GREEN";
+
+        System.out.println("[변경 전]");
+        System.out.print("box1: "); b1.printInfo();
+        System.out.print("box2: "); b2.printInfo();
+        System.out.print("box3: "); b3.printInfo();
+
+        b1.color = "YELLOW";
+
+        System.out.println("[box1 color 변경 후]");
+        System.out.print("box1: "); b1.printInfo();
+        System.out.print("box2: "); b2.printInfo();
+        System.out.print("box3: "); b3.printInfo();
 
         System.out.println("\n========== 문제 2: 참조 복사 확인 ==========");
         // TODO: Counter 객체 생성, 참조 복사 후 increment 호출, 비교 출력
+        Counter a = new Counter();
+        Counter b = a;
+
+        a.increment();
+        a.increment();
+        a.increment();
+
+        System.out.println("a.count = " + a.count);
+        System.out.println("b.count = " + b.count);
+        System.out.println("a == b : " + (a == b));
 
         System.out.println("\n========== 문제 3: null 안전 처리 ==========");
         // TODO: null 멤버와 유효 멤버를 safePrint()로 출력
+        Member member1 = null;
+        Member member2 = new Member();
+
+        member2.name = "홍길동";
+        member2.email = "hong@example.com";
+
+        safePrint(member1);
+        safePrint(member2);
 
         System.out.println("\n========== 문제 4: == vs equals 비교 ==========");
         // TODO: Point 객체와 String 객체의 == 및 equals 비교 출력
+        Point p1 = new Point(3, 5);
+        Point p2 = new Point(3, 5);
+        Point p3 = p1;
+
+        System.out.println("=== 객체 비교 (==) ===");
+        System.out.println("p1 == p2 : " + (p1 == p2));
+        System.out.println("p3 = p1; 후 p1 == p3 : " + (p1 == p3));
+
+        String str1 = new String("hello");
+        String str2 = new String("hello");
+
+        System.out.println("\n=== 문자열 비교 ===");
+        System.out.println("str1 == str2 : " + (str1 == str2));
+        System.out.println("str1.equals(str2) : " + str1.equals(str2));
     }
 
     // TODO: 문제 3에서 사용할 safePrint() 헬퍼 메소드 작성
     static void safePrint(Member m) {
         // TODO: m이 null인지 확인하고 적절히 처리
+        if (m == null) {
+            System.out.println("회원 정보가 없습니다.");
+        } else {
+            m.showInfo();
+        }
     }
 }
 
@@ -192,39 +255,46 @@ public class P02_ObjectCreation {
 // TODO: 문제 1 - Box 클래스 선언
 class Box {
     // TODO: 필드 선언 (width, height, color)
-
+    int width;
+    int height;
+    String color;
     // TODO: 정보를 출력하는 printInfo() 메소드 작성
     void printInfo() {
         // TODO
+        System.out.println(width + "x" + height + ", " + color);
     }
 }
 
 // TODO: 문제 2 - Counter 클래스 선언
 class Counter {
     // TODO: 필드 선언 (count)
-
+    int count;
     // TODO: increment() 메소드 작성 (count를 1 증가)
     void increment() {
         // TODO
+        count++;
     }
 }
 
 // TODO: 문제 3 - Member 클래스 선언
 class Member {
     // TODO: 필드 선언 (name, email)
-
+    String name, email;
     // TODO: showInfo() 메소드 작성
     void showInfo() {
         // TODO
+        System.out.println("이름: " + name + ", 이메일: " + email);
     }
 }
 
 // TODO: 문제 4 - Point 클래스 선언
 class Point {
     // TODO: 필드 선언 (x, y)
-
+    int x, y;
     // TODO: 생성자 Point(int x, int y) 작성
     Point(int x, int y) {
         // TODO: 매개변수를 필드에 할당
+        this.x = x;
+        this.y = y;
     }
 }
