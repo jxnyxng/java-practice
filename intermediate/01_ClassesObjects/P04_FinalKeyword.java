@@ -200,23 +200,64 @@ public class P04_FinalKeyword {
 
         System.out.println("========== 문제 1: final 필드 (상수) ==========");
         // TODO: Constants의 상수 출력
+        System.out.println("=== 앱 상수 ===");
+        System.out.println("앱 이름: " + Constants.APP_NAME);
+        System.out.println("최대 점수: " + Constants.MAX_SCORE + " 최소 점수: " + Constants.MIN_SCORE);
+        System.out.println("합격 기준: " + Constants.PASSING_GRADE + "점 이상");
+
         // TODO: Circle 객체 생성 후 넓이와 둘레 출력
+        System.out.println("=== 원 계산 (반지름: 7.0) ===");
+        FinalCircle circle = new FinalCircle(7.0);
+        System.out.println("원 넓이: " + circle.getArea());
+        System.out.println("원 둘레: " + circle.getCircumference());
         // TODO: 주석으로 final 변수 재할당 시도 시 에러 발생함을 표시
+//        Constants.MAX_SCORE = 200;
 
         System.out.println("\n========== 문제 2: final 메소드 ==========");
         // TODO: Dog 객체 생성 후 breathe()와 makeSound() 호출
+        FinalDog dog = new FinalDog("강아지");
+        dog.breathe();
+        dog.makeSound();
         // TODO: 주석으로 breathe() 오버라이딩 시도 시 에러 발생함을 표시
 
         System.out.println("\n========== 문제 3: final 클래스 ==========");
         // TODO: SecureId 객체 생성 후 출력
+        SecureId secureId = new SecureId("kim");
+        System.out.println(secureId.getId());
+        System.out.println(secureId);
         // TODO: 주석으로 SecureId 상속 시도 시 에러 발생함을 표시
         // TODO: final 클래스의 장점을 주석으로 설명
+        /*
+         * [final 클래스 핵심 정리 주석]
+         * 1. String이 final 클래스인 이유:
+         *    - 보안: 네트워크 연결 정보, 파일 경로 등 중요 데이터의 임의 변조 방지
+         *    - 문자열 풀 캐싱 및 해시코드 불변성 보장
+         * 2. final 클래스를 상속하려 할 때 발생하는 컴파일 에러:
+         *    - "Cannot inherit from final 'SecureId'"
+         * 3. final 클래스의 장점:
+         *    - 클래스의 상태와 동작을 예측 가능하게 유지 -> 불변성/안전성 보장
+         *    - JVM이 상속 계층을 추적하지 않아 메소드 인라인(Inline) 등 런타임 최적화 용이
+         */
+
 
         System.out.println("\n========== 문제 4: 불변 클래스 ImmutablePoint ==========");
         // TODO: ImmutablePoint p1 생성 및 출력
+        ImmutablePoint p1 = new ImmutablePoint(3, 4);
+        System.out.println("원본 p1: " + p1);
+
         // TODO: translate() 호출하여 p2 생성, p1이 변하지 않음을 확인
+        ImmutablePoint p2 = p1.translate(2, 3);
+        System.out.println("p1.translate(2, 3) → p2: " + p2);
+        System.out.println("p1: " + p1 + "  ← 불변!");
+
         // TODO: scale() 호출하여 p3 생성, p1이 변하지 않음을 확인
+        ImmutablePoint p3 = p1.scale(2);
+        System.out.println("p1.scale(2) → p3: " + p3);
+        System.out.println("p1: " + p1 + "  ← 불변!");
+
         // TODO: p1과 p2 사이 거리 출력
+        System.out.println("p1과 p2 사이 거리: " + p1.distanceTo(p2));
+
     }
 }
 
@@ -227,47 +268,56 @@ public class P04_FinalKeyword {
 // TODO: 문제 1 - Constants 클래스 선언 (모든 필드 static final)
 class Constants {
     // TODO: 상수 필드 선언 (MAX_SCORE, MIN_SCORE, APP_NAME, PI, PASSING_GRADE)
+    static final int MAX_SCORE = 100;
+    static final int MIN_SCORE = 0;
+    static final String APP_NAME = "자바 학습";
+    static final double PI = 3.14159265358979;
+    static final int PASSING_GRADE = 60;
 }
 
 // TODO: 문제 1 - FinalCircle 클래스 선언
 class FinalCircle {
     // TODO: private final double radius 필드 선언
-
+    private final double radius;
     // TODO: 생성자 FinalCircle(double radius) 작성
     FinalCircle(double radius) {
         // TODO: final 필드 초기화
+        this.radius = radius;
     }
 
     // TODO: getArea() 메소드 작성 (Constants.PI 사용)
     double getArea() {
         // TODO
-        return 0.0;
+        return radius*radius*Constants.PI;
     }
 
     // TODO: getCircumference() 메소드 작성 (Constants.PI 사용)
     double getCircumference() {
         // TODO
-        return 0.0;
+        return 2 * Constants.PI * radius;
     }
 }
 
 // TODO: 문제 2 - FinalAnimal 클래스 선언
 class FinalAnimal {
     // TODO: String name 필드 선언
-
+    String name;
     // TODO: 생성자 FinalAnimal(String name) 작성
     FinalAnimal(String name) {
         // TODO
+        this.name = name;
     }
 
     // TODO: final 메소드 breathe() 작성
     final void breathe() {
         // TODO: "[이름]은(는) 숨을 쉽니다." 출력
+        System.out.println(name + "은(는) 숨을 쉽니다.");
     }
 
     // TODO: 일반 메소드 makeSound() 작성 (오버라이딩 가능)
     void makeSound() {
         // TODO: "[이름]이(가) 소리를 냅니다." 출력
+        System.out.println(name + "이(가) 소리를 냅니다.");
     }
 }
 
@@ -282,6 +332,7 @@ class FinalDog extends FinalAnimal {
     @Override
     void makeSound() {
         // TODO
+        System.out.println(name + "이(가) 왈왈! 합니다.");
     }
 
     // 아래 코드를 주석 해제하면 컴파일 에러 발생 (final 메소드 오버라이딩 불가)
@@ -292,23 +343,25 @@ class FinalDog extends FinalAnimal {
 // TODO: 문제 3 - SecureId final 클래스 선언
 final class SecureId {
     // TODO: private final String id 필드 선언
+    private final String id;
 
     // TODO: 생성자 SecureId(String id) 작성
     SecureId(String id) {
         // TODO
+        this.id = id;
     }
 
     // TODO: getId() getter 작성
     String getId() {
         // TODO
-        return null;
+        return this.id;
     }
 
     // TODO: toString() 오버라이딩 작성
     @Override
     public String toString() {
         // TODO: "SecureId[" + id + "]" 형식으로 반환
-        return null;
+        return "SecureId[" + this.id +"]";
     }
 }
 
@@ -318,46 +371,48 @@ final class SecureId {
 // TODO: 문제 4 - ImmutablePoint final 클래스 선언
 final class ImmutablePoint {
     // TODO: private final int x, y 필드 선언
-
+    private final int x, y;
     // TODO: 생성자 ImmutablePoint(int x, int y) 작성
     ImmutablePoint(int x, int y) {
         // TODO: final 필드 초기화
+        this.x = x;
+        this.y = y;
     }
 
     // TODO: getX() getter 작성
     int getX() {
         // TODO
-        return 0;
+        return x;
     }
 
     // TODO: getY() getter 작성
     int getY() {
         // TODO
-        return 0;
+        return y;
     }
 
     // TODO: translate() 메소드 작성 (새 ImmutablePoint 반환, 원본 불변 유지)
     ImmutablePoint translate(int dx, int dy) {
         // TODO: return new ImmutablePoint(x + dx, y + dy);
-        return null;
+        return new ImmutablePoint(x + dx, y + dy);
     }
 
     // TODO: scale() 메소드 작성 (새 ImmutablePoint 반환, 원본 불변 유지)
     ImmutablePoint scale(int factor) {
         // TODO: return new ImmutablePoint(x * factor, y * factor);
-        return null;
+        return new ImmutablePoint(x * factor, y * factor);
     }
 
     // TODO: distanceTo() 메소드 작성 (Math.sqrt 사용)
     double distanceTo(ImmutablePoint other) {
         // TODO: 두 점 사이 거리 계산 후 반환
-        return 0.0;
+        return Math.sqrt(Math.pow(other.x - this.x, 2) + Math.pow(other.y - this.y, 2));
     }
 
     // TODO: toString() 오버라이딩 작성
     @Override
     public String toString() {
         // TODO: "(x, y)" 형식으로 반환
-        return null;
+        return "(" + x + ", " + y + ")";
     }
 }

@@ -1,3 +1,5 @@
+import static java.lang.Math.PI;
+
 /*
  * =====================================================
  * 파일명: P03_StaticMembers.java
@@ -181,15 +183,61 @@ public class P03_StaticMembers {
 
         System.out.println("========== 문제 1: static 카운터 ==========");
         // TODO: Robot 객체 4개 생성 후 introduce() 호출, 총 카운터 출력
+        Robot r1 = new Robot("알파");
+        Robot r2 = new Robot("베타");
+        Robot r3 = new Robot("감마");
+        Robot r4 = new Robot("델타");
+
+        System.out.println("로봇 생성중.. ---");
+        r1.introduce();
+        r2.introduce();
+        r3.introduce();
+        r4.introduce();
+
+        System.out.println("현재까지 생성된 로봇의 수: " + Robot.getTotalCount());
 
         System.out.println("\n========== 문제 2: static 유틸리티 메소드 ==========");
         // TODO: MathUtils의 각 메소드를 호출하여 결과 출력
+        System.out.println("square(7) = " + MathUtils.square(7));
+        System.out.println("circleArea(5.0) = " + MathUtils.circleArea(5.0));
+        System.out.println("max(12, 37) = " + MathUtils.max(12, 37));
+        System.out.println("factorial(6) = " + MathUtils.factorial(6));
+        System.out.println("isPrime(17) = " + MathUtils.isPrime(17));
+        System.out.println("isPrime(20) = " + MathUtils.isPrime(20));
+
 
         System.out.println("\n========== 문제 3: static vs 인스턴스 멤버 ==========");
         // TODO: School 객체 3개 생성 → 출력 → 학교명 변경 → 다시 출력
+        School sc1 = new School();
+        sc1.studentName = "김철수";
+        sc1.studentId = 20230001;
+
+        School sc2 = new School();
+        sc2.studentName = "이영희";
+        sc2.studentId = 20230002;
+
+        School sc3 = new School();
+        sc3.studentName = "박지민";
+        sc3.studentId = 20230003;
+
+        System.out.println("[변경전]");
+        sc1.printCard();
+        sc2.printCard();
+        sc3.printCard();
+
+        School.schoolName = "코딩 대학교";
+
+        System.out.println("[변경후]");
+        sc1.printCard();
+        sc2.printCard();
+        sc3.printCard();
 
         System.out.println("\n========== 문제 4: 싱글톤 패턴 ==========");
         // TODO: AppConfig 인스턴스 2개 획득 후 동일성 비교 및 설정 출력
+        AppConfig ac1 = AppConfig.getInstance();
+        AppConfig ac2 = AppConfig.getInstance();
+        System.out.println("ac1 == ac2 -> " + (ac1 == ac2));
+        ac1.showConfig();
     }
 }
 
@@ -200,21 +248,27 @@ public class P03_StaticMembers {
 // TODO: 문제 1 - Robot 클래스 선언
 class Robot {
     // TODO: static 카운터 필드와 인스턴스 필드 선언
-
+    static int totalCount = 0;
+    String name;
+    int id;
     // TODO: 생성자 작성 (totalCount 증가, id 설정)
     Robot(String name) {
         // TODO
+        totalCount++;
+        id = totalCount;
+        this.name = name;
     }
 
     // TODO: static 메소드 getTotalCount() 작성
     static int getTotalCount() {
         // TODO
-        return 0;
+        return totalCount;
     }
 
     // TODO: introduce() 메소드 작성
     void introduce() {
         // TODO
+        System.out.println("[로봇 #" + id + "] 이름: " + name);
     }
 }
 
@@ -223,62 +277,85 @@ class MathUtils {
     // TODO: square() 메소드 작성
     static int square(int n) {
         // TODO
-        return 0;
+        return (n*n);
     }
 
     // TODO: circleArea() 메소드 작성
     static double circleArea(double r) {
         // TODO
-        return 0.0;
+        return (PI * r * r);
     }
 
     // TODO: max() 메소드 작성
     static int max(int a, int b) {
         // TODO
-        return 0;
+        return (a > b ? a : b);
     }
 
     // TODO: factorial() 메소드 작성
     static int factorial(int n) {
         // TODO
-        return 0;
+        if (n<0) return 0;
+        int res = 1;
+        for(int i=2; i<=n; i++) {
+            res *= i;
+        }
+        return res;
     }
 
     // TODO: isPrime() 메소드 작성
     static boolean isPrime(int n) {
         // TODO
-        return false;
+        if (n<=1) return false;
+        for (int i=2; i * i <= n; i++){
+            if (n%i == 0) return false;
+        }
+        return true;
     }
 }
 
 // TODO: 문제 3 - School 클래스 선언
 class School {
     // TODO: static 필드 schoolName과 인스턴스 필드 선언
+    static String schoolName = "자바 대학교";
+    String studentName;
+    int studentId;
 
     // TODO: printCard() 메소드 작성
     void printCard() {
         // TODO
+        System.out.println(schoolName + " - " + studentName + " " + "(" + studentId + ")");
     }
 }
 
 // TODO: 문제 4 - AppConfig 싱글톤 클래스 선언
 class AppConfig {
     // TODO: private static instance 필드 선언
+    private static AppConfig instance = null;
     // TODO: private 인스턴스 필드 (appName, version) 선언
+    private String appName, version;
 
     // TODO: private 생성자 작성 (appName, version 초기값 설정)
     private AppConfig() {
         // TODO
+        appName = "자바 학습 앱";
+        version = "1.0.0";
     }
 
     // TODO: getInstance() 정적 메소드 작성 (Lazy Initialization)
     static AppConfig getInstance() {
         // TODO
-        return null;
+        if (instance == null) {
+            instance = new AppConfig();
+        }
+        return instance;
     }
 
     // TODO: showConfig() 메소드 작성
     void showConfig() {
         // TODO
+        System.out.println("== 앱 설정 ==");
+        System.out.println("앱 이름: " + appName);
+        System.out.println("버전: " + version);
     }
 }
