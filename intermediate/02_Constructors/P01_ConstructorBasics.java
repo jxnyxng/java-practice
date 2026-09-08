@@ -45,10 +45,11 @@ public class P01_ConstructorBasics {
         System.out.println("---------------------------------------------");
 
         // TODO: 기본 생성자로 Car 객체 생성 후 출력
-        // Car car1 = ...
-
+        Car car = new Car();
+        car.displayInfo();
         // TODO: 매개변수 생성자로 Car 객체 생성 후 출력
-        // Car car2 = ...
+        Car car2 = new Car("현대", "아반떼", 2024);
+        car2.displayInfo();
 
         System.out.println();
 
@@ -75,6 +76,11 @@ public class P01_ConstructorBasics {
         System.out.println("---------------------------------------------");
 
         // TODO: Student 객체 두 개 생성 후 displayInfo() 호출
+        Student student1 = new Student("홍길동", "20240001", 3.85);
+        Student student2 = new Student("김영희", "20240002", 4.20);
+
+        student1.displayInfo();
+        student2.displayInfo();
 
         System.out.println();
 
@@ -104,9 +110,11 @@ public class P01_ConstructorBasics {
 
         System.out.println("[문제 3] 컴파일러 자동 기본 생성자 확인");
         System.out.println("---------------------------------------------");
-
         // TODO: SimpleBox 객체 생성 후 각 필드의 기본값 출력
-
+        // 클래스에 명시된 생성자가 하나도 없으면 컴파일러가 기본 생성자를 자동으로 추가해주기 때문에
+        // 생성자를 직접 작성하지 않아도 new SimpleBox()로 객체 생성이 가능하다
+        SimpleBox simpleBox = new SimpleBox();
+        simpleBox.printDefaults();
     }
 
     // =====================================================
@@ -118,12 +126,21 @@ public class P01_ConstructorBasics {
         int year;       // 연식
 
         // TODO: 기본 생성자 작성 (brand="미정", model="미정", year=0 으로 초기화)
-
+        Car(){
+            brand="미정";
+            model="미정";
+            year=0;
+        }
         // TODO: 매개변수 생성자 작성 (brand, model, year 를 매개변수로 받아 초기화)
-
+        public Car(String brand, String model, int year){
+            this.brand = brand;
+            this.model = model;
+            this.year = year;
+        }
         // 차량 정보 출력 메소드 (시그니처만 - 내용 작성 필요)
         void displayInfo() {
             // TODO: "브랜드: %s, 모델: %s, 연도: %d" 형태로 출력
+            System.out.printf("브랜드: %s, 모델: %s, 연도: %d \n", brand, model, year);
         }
     }
 
@@ -136,10 +153,16 @@ public class P01_ConstructorBasics {
         double gpa;         // 학점
 
         // TODO: 세 필드를 모두 매개변수로 받는 생성자 작성
+        Student(String name, String studentId, double gpa){
+            this.name = name;
+            this.studentId = studentId;
+            this.gpa = gpa;
+        }
 
         // 학생 정보 출력 메소드 (시그니처만 - 내용 작성 필요)
         void displayInfo() {
             // TODO: "학생 정보: 이름=%s, 학번=%s, 학점=%.2f" 형태로 출력
+            System.out.printf("학생 정보: 이름=%s, 학번=%s, 학점=%.2f \n", name, studentId, gpa);
         }
     }
 
@@ -157,6 +180,10 @@ public class P01_ConstructorBasics {
         // TODO: 생성자 없이 각 필드의 기본값을 출력하는 printDefaults() 작성
         void printDefaults() {
             // TODO: 각 필드의 기본값 출력
+            System.out.println("정수형 기본값: " + count);
+            System.out.println("실수형 기본값: " + weight);
+            System.out.println("불리언 기본값: " + isEmpty);
+            System.out.println("문자열 기본값: " + label);
         }
     }
 }
