@@ -48,10 +48,12 @@ public class P03_ThisKeyword {
         System.out.println("---------------------------------------------");
 
         // TODO: PersonBad 객체 생성 (this 없이 잘못 초기화) 후 출력
-        // PersonBad bad = ...
+         PersonBad bad = new PersonBad("이준혁", 25);
+         bad.displayInfo();
 
         // TODO: PersonGood 객체 생성 (this 올바르게 사용) 후 출력
-        // PersonGood good = ...
+         PersonGood good = new PersonGood("이준혁", 25);
+         good.displayInfo();
 
         System.out.println();
 
@@ -83,13 +85,15 @@ public class P03_ThisKeyword {
         System.out.println("---------------------------------------------");
 
         // TODO: 도시명만으로 Address 생성 후 출력 ("서울시")
-        // Address a1 = ...
+        Address a1 = new Address("용인시");
+        a1.displayInfo();
 
         // TODO: 도시+구로 Address 생성 후 출력 ("서울시", "강남구")
-        // Address a2 = ...
-
+        Address a2 = new Address("용인시", "기흥구");
+        a2.displayInfo();
         // TODO: 도시+구+상세주소로 Address 생성 후 출력
-        // Address a3 = ...
+        Address a3 = new Address("용인시", "기흥구", "어정로");
+        a3.displayInfo();
 
         System.out.println();
 
@@ -123,10 +127,13 @@ public class P03_ThisKeyword {
         System.out.println("---------------------------------------------");
 
         // TODO: QueryBuilder를 메소드 체이닝으로 구성하고 build() 호출 후 출력
-        // QueryBuilder query = new QueryBuilder()
-        //     .setTable(...)
-        //     ...
+         QueryBuilder query = new QueryBuilder()
+             .setTable("users")
+             .setCondition("age > 20")
+             .setOrderBy("name")
+             .setLimit(10);
 
+        System.out.println(query.build());
     }
 
     // =====================================================
@@ -137,10 +144,14 @@ public class P03_ThisKeyword {
         int age;        // 나이
 
         // TODO: 생성자 작성 - this 없이 "name = name;" 으로 작성 (의도적으로 잘못된 버전)
-
+        PersonBad(String name, int age){
+            name = name;
+            age = age;
+        }
         // 정보 출력 메소드 (시그니처만 - 내용 작성 필요)
         void displayInfo() {
             // TODO: "[잘못된 초기화] 이름: %s, 나이: %d" 형태로 출력
+            System.out.printf("[잘못된 초기화] 이름: %s, 나이: %d \n", name, age);
         }
     }
 
@@ -152,10 +163,14 @@ public class P03_ThisKeyword {
         int age;        // 나이
 
         // TODO: 생성자 작성 - this.name = name; 으로 올바르게 작성
-
+        PersonGood(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
         // 정보 출력 메소드 (시그니처만 - 내용 작성 필요)
         void displayInfo() {
             // TODO: "[올바른 초기화] 이름: %s, 나이: %d" 형태로 출력
+            System.out.printf("[올바른 초기화] 이름: %s, 나이: %d \n", name, age);
         }
     }
 
@@ -168,14 +183,24 @@ public class P03_ThisKeyword {
         String detail;      // 상세주소
 
         // TODO: 도시만 받는 생성자 -> this(city, "미입력", "미입력") 호출
-
+        Address(String city) {
+            this(city, "미입력", "미입력");
+        }
         // TODO: 도시+구 받는 생성자 -> this(city, district, "미입력") 호출
-
+        Address(String city, String district) {
+            this(city, district, "미입력");
+        }
         // TODO: 도시+구+상세주소 모두 받는 생성자 (실제 초기화)
+        Address(String city, String district, String detail) {
+            this.city = city;
+            this.district = district;
+            this.detail = detail;
+        }
 
         // 주소 출력 메소드 (시그니처만 - 내용 작성 필요)
         void displayInfo() {
             // TODO: "주소: %s %s %s" 형태로 출력
+            System.out.printf("주소: %s %s %s \n", city, district, detail);
         }
     }
 
@@ -191,38 +216,61 @@ public class P03_ThisKeyword {
         // 기본 생성자 (기본값 초기화)
         QueryBuilder() {
             // TODO: table="", condition="", orderBy="", limit=-1 로 초기화
+            this.table = "";
+            this.condition = "";
+            this.orderBy = "";
+            this.limit = -1;
         }
 
         // TODO: setTable(String table) - this 반환
         QueryBuilder setTable(String table) {
             // TODO: this.table 설정 후 return this
+            this.table = table;
             return this;
         }
 
         // TODO: setCondition(String condition) - this 반환
         QueryBuilder setCondition(String condition) {
             // TODO: this.condition 설정 후 return this
+            this.condition = condition;
             return this;
         }
 
         // TODO: setOrderBy(String orderBy) - this 반환
         QueryBuilder setOrderBy(String orderBy) {
             // TODO: this.orderBy 설정 후 return this
+            this.orderBy = orderBy;
             return this;
         }
 
         // TODO: setLimit(int limit) - this 반환
         QueryBuilder setLimit(int limit) {
             // TODO: this.limit 설정 후 return this
+            this.limit = limit;
             return this;
         }
 
         // 쿼리 문자열 생성 메소드 (시그니처만 - 내용 작성 필요)
         String build() {
+            StringBuilder query = new StringBuilder();
+
+            query.append("SELECT * FROM ").append(table);
+
+            if(!condition.isEmpty()){
+                query.append(" WHERE ").append(condition);
+            }
+            if(!orderBy.isEmpty()){
+                query.append(" ORDER BY ").append(orderBy);
+            }
+            if(limit > 0){
+                query.append(" LIMIT ").append(limit);
+            }
+
             // TODO: "SELECT * FROM table WHERE condition ORDER BY orderBy LIMIT limit"
             //       형태의 쿼리 문자열 생성 후 반환
             //       (condition, orderBy, limit 은 설정된 경우에만 포함)
-            return "";
+
+            return query.toString();
         }
     }
 }
