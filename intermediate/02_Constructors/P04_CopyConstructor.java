@@ -1,3 +1,6 @@
+import javax.print.Doc;
+import java.util.Arrays;
+
 /**
  * =====================================================
  * 파일명: P04_CopyConstructor.java
@@ -49,15 +52,17 @@ public class P04_CopyConstructor {
         System.out.println("---------------------------------------------");
 
         // TODO: Team 객체 team1 생성 ("드림팀", ["김철수", "이영희", "박민준"])
-
+        Team team1 = new Team("드림팀", new String[]{"김철수", "이영희", "박민준"});
         // TODO: team2 = team1 으로 얕은 복사
-
+        Team team2 = team1;
         // TODO: team2 변경 전 team1 멤버 출력
-
+        System.out.print("변경 전 team1 : ");
+        team1.printMembers();
         // TODO: team2.members[1] = "홍길동" 으로 변경
-
+        team2.members[1] = "홍길동";
         // TODO: team2 변경 후 team1 멤버 출력 (team1도 바뀌어 있음을 확인)
-
+        System.out.print("team2 변경 후 team1 : ");
+        team1.printMembers();
         System.out.println();
 
         // =====================================================
@@ -88,14 +93,22 @@ public class P04_CopyConstructor {
         System.out.println("---------------------------------------------");
 
         // TODO: TeamDeep 원본 객체 생성
+        TeamDeep teamDeep1 = new TeamDeep("드림팀", new String[]{"김철수", "이영희", "박민준"});
 
         // TODO: 복사 생성자로 복사본 생성
+        TeamDeep teamDeep2 = new TeamDeep(teamDeep1);
+        System.out.printf("원본 팀명: %s, 복사본 팀명: %s\n", teamDeep1.teamName, teamDeep2.teamName);
 
         // TODO: 변경 전 원본 출력
+        System.out.print("변경 전 원본: ");
+        teamDeep1.printMembers();
 
         // TODO: 복사본 멤버 변경 (members[1] = "홍길동")
+        teamDeep2.members[1] = "홍길동";
 
         // TODO: 변경 후 원본과 복사본 모두 출력
+        System.out.print("변경 후 원본: "); teamDeep1.printMembers();
+        System.out.print("변경 후 복사본: "); teamDeep2.printMembers();
 
         System.out.println();
 
@@ -129,15 +142,31 @@ public class P04_CopyConstructor {
         System.out.println("---------------------------------------------");
 
         // TODO: Document 원본 객체 생성 ("자바 입문", [1, 2, 3] 페이지 목록)
-
+        Document document1 = new Document("자바 입문", new int[]{1, 2, 3});
+        System.out.println("원본 제목 : " + document1.title);
         // TODO: clone()으로 복사본 생성 (CloneNotSupportedException 처리 필요)
+        try{
+            Document document2 = (Document) document1.clone();
+            document2.setTitle("자바 고급");
+            System.out.println("clone() 복사본 제목 변경 후 : " + document1.title + "(변경없음)");
+        } catch (CloneNotSupportedException e){
+            e.printStackTrace();
+        }
 
         // TODO: 복사 생성자로 복사본 생성
+        Document docCopy = new Document(document1);
+        docCopy.setTitle("자바 심화 (복사 생성자)");
+        System.out.println("복사 생성자 복사본 제목 변경 후 원본: " + document1.title + "  (변경 없음)");
 
         // TODO: 각 복사본의 제목 변경 후 원본 비교 출력
+        document1.printInfo();
+        document1.setTitle("자바 중급");
+        document1.printInfo();
 
         System.out.println("[비교 결론]");
         // TODO: clone()과 복사 생성자의 차이점을 출력으로 정리
+        System.out.println("clone(): Cloneable 구현 필요, 반환타입 캐스팅 필요, checked exception 처리 필요");
+        System.out.println("복사 생성자: 구현 간단/타입 안전/상속 시 더 유연");
     }
 
     // =====================================================
@@ -148,10 +177,20 @@ public class P04_CopyConstructor {
         String[] members;       // 멤버 목록
 
         // TODO: 팀 이름과 멤버 배열을 받는 생성자
+        Team(String teamName, String[] members){
+            this.teamName = teamName;
+            this.members = members;
+        }
 
         // 멤버 목록 출력 메소드 (시그니처만 - 내용 작성 필요)
         void printMembers() {
             // TODO: "[멤버1, 멤버2, ...]" 형태로 출력
+            System.out.print("[");
+            for(int i=0; i< members.length-1; i++){
+                System.out.print(members[i] + ", ");
+            }
+            System.out.print(members[members.length-1]);
+            System.out.println("]");
         }
     }
 
@@ -163,13 +202,29 @@ public class P04_CopyConstructor {
         String[] members;       // 멤버 목록
 
         // TODO: 팀 이름과 멤버 배열을 받는 일반 생성자
-
+        TeamDeep(String teamName, String[] members){
+            this.teamName = teamName;
+            this.members = members;
+        }
         // TODO: 복사 생성자 - TeamDeep(TeamDeep other)
         //       members 배열을 새로 할당하고 원소 하나씩 복사
+        TeamDeep(TeamDeep other){
+            this.teamName = other.teamName;
+            this.members = new String[other.members.length];
 
+            for(int i = 0; i<other.members.length; i++){
+                members[i] = other.members[i];
+            }
+        }
         // 멤버 목록 출력 메소드 (시그니처만 - 내용 작성 필요)
         void printMembers() {
             // TODO: "[멤버1, 멤버2, ...]" 형태로 출력
+            System.out.print("[");
+            for(int i=0; i< members.length-1; i++){
+                System.out.print(members[i] + ", ");
+            }
+            System.out.print(members[members.length-1]);
+            System.out.println("]");
         }
     }
 
@@ -182,9 +237,21 @@ public class P04_CopyConstructor {
         int[] pageNumbers;  // 페이지 번호 배열
 
         // TODO: 제목과 페이지 번호 배열을 받는 일반 생성자
+        Document(String title, int[] pageNumbers){
+            this.title = title;
+            this.pageNumbers = pageNumbers;
+        }
 
         // TODO: 복사 생성자 - Document(Document other)
         //       title과 pageNumbers를 깊은 복사
+        Document(Document other){
+            this.title = other.title;
+            this.pageNumbers = new int[other.pageNumbers.length];
+
+            for(int i=0; i<pageNumbers.length; i++){
+                pageNumbers[i] = other.pageNumbers[i];
+            }
+        }
 
         // TODO: clone() 메소드 오버라이드
         //       super.clone() 호출 후 pageNumbers 배열 깊은 복사
@@ -192,17 +259,23 @@ public class P04_CopyConstructor {
         protected Object clone() throws CloneNotSupportedException {
             // TODO: super.clone() 으로 기본 복사 수행 후
             //       pageNumbers 배열을 별도로 깊은 복사하여 반환
-            return null;
+
+            Document cloned = (Document)super.clone();
+            cloned.pageNumbers = this.pageNumbers.clone();
+
+            return cloned;
         }
 
         // 제목 변경 메소드 (시그니처만 - 내용 작성 필요)
         void setTitle(String title) {
             // TODO: this.title = title
+            this.title = title;
         }
 
         // 문서 정보 출력 메소드 (시그니처만 - 내용 작성 필요)
         void printInfo() {
             // TODO: "제목: %s, 페이지: %d장" 형태로 출력
+            System.out.printf("제목: %s, 페이지: %d장 \n", title, pageNumbers.length);
         }
     }
 }

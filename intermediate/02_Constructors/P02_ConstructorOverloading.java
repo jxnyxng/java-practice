@@ -48,13 +48,16 @@ public class P02_ConstructorOverloading {
         System.out.println("---------------------------------------------");
 
         // TODO: 이름만으로 Product 생성 후 출력
-        // Product p1 = ...
+         Product p1 = new Product("노트북");
+         p1.displayInfo();
 
         // TODO: 이름+가격으로 Product 생성 후 출력
-        // Product p2 = ...
+         Product p2 = new Product("마우스", 25000);
+         p2.displayInfo();
 
         // TODO: 이름+가격+재고로 Product 생성 후 출력
-        // Product p3 = ...
+         Product p3 = new Product("키보드", 89000, 150);
+         p3.displayInfo();
 
         System.out.println();
 
@@ -84,15 +87,18 @@ public class P02_ConstructorOverloading {
         System.out.println("---------------------------------------------");
 
         // TODO: 기본 생성자로 Rectangle 생성 후 출력
-        // Rectangle r1 = ...
+        Rectangle r1 = new Rectangle();
+        r1.displayInfo();
 
         // TODO: 한 변의 길이로 정사각형 생성 후 출력 (side=5)
-        // Rectangle r2 = ...
+         Rectangle r2 = new Rectangle(5);
+         r2.displayInfo();
 
         // TODO: 가로4, 세로7 직사각형 생성 후 출력
-        // Rectangle r3 = ...
+         Rectangle r3 = new Rectangle(4, 7);
+         r3.displayInfo();
 
-        System.out.println();
+         System.out.println();
 
         // =====================================================
         // 문제 3: this()로 생성자 중복 제거
@@ -122,13 +128,16 @@ public class P02_ConstructorOverloading {
         System.out.println("---------------------------------------------");
 
         // TODO: 이름만으로 Member 생성 후 출력
-        // Member m1 = ...
+         Member m1 = new Member("박민준");
+         m1.displayInfo();
 
         // TODO: 이름+등급으로 Member 생성 후 출력
-        // Member m2 = ...
+         Member m2 = new Member("최수진", "VIP");
+         m2.displayInfo();
 
         // TODO: 이름+등급+포인트로 Member 생성 후 출력
-        // Member m3 = ...
+         Member m3 = new Member("김태호", "VVIP", 5000);
+         m3.displayInfo();
     }
 
     // =====================================================
@@ -140,14 +149,25 @@ public class P02_ConstructorOverloading {
         int stock;      // 재고 수량
 
         // TODO: 이름만 받는 생성자 (price=0, stock=0)
+        Product(String name){
+            this.name = name;
+        }
 
         // TODO: 이름+가격 받는 생성자 (stock=0)
-
+        Product(String name, int price){
+            this.name = name;
+            this.price = price;
+        }
         // TODO: 이름+가격+재고 모두 받는 생성자
-
+        Product(String name, int price, int stock){
+            this.name = name;
+            this.price = price;
+            this.stock = stock;
+        }
         // 상품 정보 출력 메소드 (시그니처만 - 내용 작성 필요)
         void displayInfo() {
             // TODO: "상품명: %s, 가격: %d원, 재고: %d개" 형태로 출력
+            System.out.printf("상품명: %s, 가격: %d원, 재고: %d개 \n", name, price, stock);
         }
     }
 
@@ -159,20 +179,31 @@ public class P02_ConstructorOverloading {
         int height; // 세로
 
         // TODO: 기본 생성자 (width=1, height=1)
-
+        Rectangle(){
+            this.width = 1;
+            this.height = 1;
+        }
         // TODO: 한 변 길이만 받는 생성자 (정사각형)
-
+        Rectangle(int len){
+            this.width = len;
+            this.height = len;
+        }
         // TODO: 가로+세로 모두 받는 생성자
+        Rectangle(int width, int height){
+            this.width = width;
+            this.height = height;
+        }
 
         // 넓이 계산 및 출력 메소드 (시그니처만 - 내용 작성 필요)
         int calculateArea() {
             // TODO: 넓이 반환
-            return 0;
+            return (width*height);
         }
 
         // 직사각형 정보 출력 메소드 (시그니처만 - 내용 작성 필요)
         void displayInfo() {
             // TODO: "가로: %d, 세로: %d, 넓이: %d" 형태로 출력
+            System.out.printf("가로: %d, 세로: %d, 넓이: %d \n", width, height, calculateArea());
         }
     }
 
@@ -185,14 +216,23 @@ public class P02_ConstructorOverloading {
         int point;      // 포인트
 
         // TODO: 이름만 받는 생성자 -> this(name, "일반", 0) 호출
-
+        public Member(String name){
+            this(name, "일반", 0);
+        }
         // TODO: 이름+등급 받는 생성자 -> this(name, grade, 0) 호출
-
+        public Member(String name, String grade){
+            this(name, grade, 0);
+        }
         // TODO: 이름+등급+포인트 모두 받는 생성자 (실제 필드 초기화)
-
+        public Member(String name, String grade, int point) {
+            this.name = name;
+            this.grade = grade;
+            this.point = point;
+        }
         // 회원 정보 출력 메소드 (시그니처만 - 내용 작성 필요)
         void displayInfo() {
             // TODO: "이름: %s, 등급: %s, 포인트: %d" 형태로 출력
+            System.out.printf("이름: %s, 등급: %s, 포인트: %d \n", name, grade, point);
         }
     }
 }
